@@ -10,33 +10,39 @@ export default function Search() {
   }, [query, setShowSuggestions]);
 
   return (
-    <>
+    <div style={{ marginTop: 0 }}>
+      <h2 style={{ textAlign: "left" }}>Search X</h2>
       <Autocomplete />
       <div style={{ display: "flex", minWidth: "100%" }}>
         <div style={{ padding: "20px", textAlign: "left" }}>
-          <small style={{ fontSize: "12px", color: "#666" }}>
-            {results.length} results found
-          </small>
           {results.length > 0 ? (
-            results.map((result) => (
-              <div
-                key={result.id}
-                style={{ marginBottom: "20px", borderBottom: "1px solid #ccc" }}
-              >
-                <a
-                  href={result.link}
-                  style={{ color: "blue", textDecoration: "underline" }}
+            <>
+              <small style={{ fontSize: "12px", color: "#666" }}>
+                {results.length} results found
+              </small>
+              {results.map((result) => (
+                <div
+                  key={result.id}
+                  style={{
+                    marginBottom: "20px",
+                    borderBottom: "1px solid #ccc",
+                  }}
                 >
-                  <p>{result.title}</p>
-                </a>
-                <p>{result.description.substring(0, 100)}...</p>
-              </div>
-            ))
+                  <a
+                    href={result.link}
+                    style={{ color: "blue", textDecoration: "underline" }}
+                  >
+                    <p>{result.title}</p>
+                  </a>
+                  <p>{result.description.substring(0, 100)}...</p>
+                </div>
+              ))}
+            </>
           ) : (
             <p>No results found</p>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

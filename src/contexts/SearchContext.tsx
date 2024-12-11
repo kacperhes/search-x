@@ -36,7 +36,7 @@ export const SearchProvider = ({
   children: React.ReactNode | React.ReactNode[];
 }) => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("query") || "");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
@@ -71,8 +71,12 @@ export const SearchProvider = ({
         item.description.toLowerCase().includes(queryParsed)
     );
     setQuery(query);
+    setSearchParams({ query: queryParsed });
     setResults(filteredResults);
-    navigate(`/search?query=${queryParsed}`);
+
+    if (window.location.pathname !== "/search") {
+      navigate(`/search?query=${queryParsed}`);
+    }
   };
 
   const addToSearchHistory = (id: number) => {
