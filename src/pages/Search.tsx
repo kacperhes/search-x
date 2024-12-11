@@ -6,7 +6,7 @@ export default function Search() {
   const { results, query, setShowSuggestions } = useSearchContext();
 
   useEffect(() => {
-    setShowSuggestions(false)
+    setShowSuggestions(false);
   }, [query, setShowSuggestions]);
 
   return (
@@ -14,6 +14,9 @@ export default function Search() {
       <Autocomplete />
       <div style={{ display: "flex", minWidth: "100%" }}>
         <div style={{ padding: "20px", textAlign: "left" }}>
+          <small style={{ fontSize: "12px", color: "#666" }}>
+            {results.length} results found
+          </small>
           {results.length > 0 ? (
             results.map((result) => (
               <div
@@ -33,7 +36,7 @@ export default function Search() {
             <p>No results found</p>
           )}
         </div>
-      </div>  
+      </div>
     </>
   );
 }

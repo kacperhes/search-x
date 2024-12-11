@@ -10,6 +10,8 @@ export default function Autocomplete() {
     handleAutocomplete,
     setShowSuggestions,
     showSuggestions,
+    searchHistory,
+    addToSearchHistory,
   } = useSearchContext();
   const [localQuery, setLocalQuery] = useState(query);
 
@@ -20,6 +22,7 @@ export default function Autocomplete() {
   };
 
   const handleSuggestionClick = (suggestion: SearchResult) => {
+    addToSearchHistory(suggestion.id);
     handleSearch(suggestion.title);
   };
 
@@ -55,7 +58,7 @@ export default function Autocomplete() {
         style={{
           display: "flex",
           flexDirection: "column",
-          maxHeight: "250px",
+          height: "250px",
           overflowY: "scroll",
           width: "100%",
           marginTop: "10px",
@@ -67,19 +70,18 @@ export default function Autocomplete() {
           suggestions.map((suggestion, idx) => (
             <div
               key={`suggestion-${idx}`}
-              className="suggestion-item"
+              className={`suggestion-item ${
+                searchHistory.has(suggestion.id) ? "searched" : ""
+              }`}
               style={{
                 padding: "5px",
                 color: "#fff",
                 borderBottom: "1px solid grey",
-                cursor: "pointer",
+                cursor: showSuggestions ? "pointer" : "default",
                 zIndex: 10000,
                 opacity: showSuggestions ? 1 : 0,
               }}
-              onClick={(e) => {
-                console.log(e);
-                handleSuggestionClick(suggestion);
-              }}
+              onClick={() => handleSuggestionClick(suggestion)}
             >
               <span>{suggestion.title.slice(0, localQuery.length)}</span>
               <strong>{suggestion.title.slice(localQuery.length)}</strong>
