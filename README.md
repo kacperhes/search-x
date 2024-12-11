@@ -1,5 +1,25 @@
 # React + TypeScript + Vite
 
+## Setup
+
+Clone repository
+
+```bash
+git clone https://github.com/x-search/x-search.git
+```
+
+Install dependencies
+
+```bash
+yarn
+```
+
+Run app in development mode
+
+```bash
+yarn dev
+```
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
