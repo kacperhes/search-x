@@ -1,5 +1,4 @@
 #root {
-  padding: 2rem;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -16,4 +15,8 @@
 
 .searched {
   color: purple !important;
+}
+
+.remove-button:hover {
+  color: #000 !important;
 }

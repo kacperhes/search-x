@@ -3,14 +3,15 @@ import Autocomplete from "../components/Autocomplete";
 import { useSearchContext } from "../contexts/SearchContext";
 
 export default function Search() {
-  const { results, query, setShowSuggestions } = useSearchContext();
+  const { results, query, setShowSuggestions } =
+    useSearchContext();
 
   useEffect(() => {
     setShowSuggestions(false);
   }, [query, setShowSuggestions]);
 
   return (
-    <div style={{ marginTop: 0 }}>
+    <div style={{ marginTop: 0, paddingLeft: "2rem" }}>
       <h2 style={{ textAlign: "left" }}>Search X</h2>
       <Autocomplete />
       <div style={{ display: "flex", minWidth: "100%" }}>

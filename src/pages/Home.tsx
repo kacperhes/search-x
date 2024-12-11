@@ -3,13 +3,13 @@ import Autocomplete from "../components/Autocomplete";
 export default function Home() {
   return (
     <div
-      className="home"
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
+        overflow: "hidden",
         margin: "0 auto",
       }}
     >
