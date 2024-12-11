@@ -33,6 +33,10 @@
   }
 }
 
+.suggestion-item {
+  z-index: 10000;
+}
+
 .suggestion-item:hover {
   background-color: #e9ecef;
   color: #000 !important;

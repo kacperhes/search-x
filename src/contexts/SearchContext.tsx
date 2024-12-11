@@ -10,6 +10,8 @@ interface SearchContextType {
   results: SearchResult[];
   setResults: (results: SearchResult[]) => void;
   suggestions: SearchResult[];
+  showSuggestions: boolean;
+  setShowSuggestions: (showSuggestions: boolean) => void;
   setSuggestions: (suggestions: SearchResult[]) => void;
   handleAutocomplete: (query: string) => void;
   handleSearch: (query: string) => void;
@@ -34,7 +36,7 @@ export const SearchProvider = ({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
-
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const handleAutocomplete = useCallback((input: string) => {
     const inputParsed = input.toLowerCase();
 
@@ -52,6 +54,7 @@ export const SearchProvider = ({
       .slice(0, 10);
 
     setSuggestions(filteredResults);
+    setShowSuggestions(true);
   }, []);
 
   const handleSearch = (query: string) => {
@@ -64,7 +67,7 @@ export const SearchProvider = ({
     setQuery(query);
     setResults(filteredResults);
     navigate(`/search?query=${queryParsed}`);
-  }
+  };
 
   return (
     <SearchContext.Provider
@@ -77,6 +80,8 @@ export const SearchProvider = ({
         setSuggestions,
         handleAutocomplete,
         handleSearch,
+        showSuggestions,
+        setShowSuggestions,
       }}
     >
       {children}
