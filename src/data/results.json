@@ -118,5 +118,11 @@
     "title": "Version Control with Git",
     "description": "Basics of version control using Git.",
     "link": "https://git-scm.com/doc"
+  },
+  {
+    "id": 21,
+    "title": "How to optimize react hooks",
+    "description": "How to optimize react hooks.",
+    "link": "https://www.youtube.com/watch?v=wY65xk539Lc"
   }
 ]

@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { SearchResult } from "../types";
@@ -18,6 +24,7 @@ interface SearchContextType {
   handleSearch: (query: string) => void;
   addToSearchHistory: (id: number) => void;
   removeFromSearchHistory: (id: number) => void;
+  lastSearchTime: number;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -38,6 +45,7 @@ export const SearchProvider = ({
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("query") || "");
+  const [lastSearchTime, setLastSearchTime] = useState(0);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -64,6 +72,7 @@ export const SearchProvider = ({
   }, []);
 
   const handleSearch = (query: string) => {
+    const startTime = Date.now();
     const queryParsed = query.toLowerCase();
     const filteredResults = localDatabase.filter(
       (item) =>
@@ -77,6 +86,8 @@ export const SearchProvider = ({
     if (window.location.pathname !== "/search") {
       navigate(`/search?query=${queryParsed}`);
     }
+    const delta = (Date.now() - startTime) / 1000;
+    setLastSearchTime(parseFloat(delta.toFixed(4)));
   };
 
   const addToSearchHistory = (id: number) => {
@@ -91,10 +102,17 @@ export const SearchProvider = ({
     });
   };
 
+  useEffect(() => {
+    if (query) {
+      handleSearch(query);
+    }
+  }, []);
+
   return (
     <SearchContext.Provider
       value={{
         query,
+        lastSearchTime,
         setQuery,
         results,
         setResults,

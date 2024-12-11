@@ -12,7 +12,6 @@ export default function Autocomplete() {
     showSuggestions,
     searchHistory,
     addToSearchHistory,
-    removeFromSearchHistory,
   } = useSearchContext();
   const [localQuery, setLocalQuery] = useState(query);
 
@@ -102,28 +101,6 @@ export default function Autocomplete() {
                 <span>{suggestion.title.slice(0, localQuery.length)}</span>
                 <strong>{suggestion.title.slice(localQuery.length)}</strong>
               </div>
-              {searchHistory.has(suggestion.id) && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the suggestion click
-                    removeFromSearchHistory(suggestion.id);
-                  }}
-                  className="remove-button"
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "none",
-                    color: "#fff",
-                    cursor: "pointer",
-                    position: "absolute",
-                    right: "5px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 10000,
-                  }}
-                >
-                  x
-                </button>
-              )}
             </div>
           ))}
       </div>

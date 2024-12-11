@@ -1,9 +1,11 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Autocomplete from "../components/Autocomplete";
 import { useSearchContext } from "../contexts/SearchContext";
-
 export default function Search() {
-  const { results, query, setShowSuggestions } =
+  const navigate = useNavigate();
+  const { results, query, lastSearchTime, setShowSuggestions, setQuery } =
     useSearchContext();
 
   useEffect(() => {
@@ -12,14 +14,22 @@ export default function Search() {
 
   return (
     <div style={{ marginTop: 0, paddingLeft: "2rem" }}>
-      <h2 style={{ textAlign: "left" }}>Search X</h2>
+      <h2
+        style={{ textAlign: "left", cursor: "pointer" }}
+        onClick={() => {
+          navigate("/");
+          setQuery("");
+        }}
+      >
+        Search X
+      </h2>
       <Autocomplete />
       <div style={{ display: "flex", minWidth: "100%" }}>
         <div style={{ padding: "20px", textAlign: "left" }}>
           {results.length > 0 ? (
             <>
               <small style={{ fontSize: "12px", color: "#666" }}>
-                {results.length} results found
+                {results.length} results found after {lastSearchTime}ms
               </small>
               {results.map((result) => (
                 <div
